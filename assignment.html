@@ -435,8 +435,39 @@ help(package=&quot;doMC&quot;)
 registerDoMC(cores = 4)
 fit1 &lt;- train(classe~.,data=cbind(train1_pred,classe=train1_res),method=&quot;rf&quot;,
               trControl=fitControl,verbose=T)
-pred1 &lt;- predict(fit1,newdata=test1_pred)
+</code></pre>
+
+<pre><code class="r">pred1 &lt;- predict(fit1,newdata=test1_pred)
 fit1
+</code></pre>
+
+<pre><code>## Random Forest 
+## 
+## 19622 samples
+##    52 predictor
+##     5 classes: &#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## 
+## Summary of sample sizes: 17660, 17660, 17659, 17659, 17660, 17660, ... 
+## 
+## Resampling results across tuning parameters:
+## 
+##   mtry  Accuracy   Kappa      Accuracy SD  Kappa SD   
+##    2    0.9741155  0.9672459  0.003625660  0.004589429
+##   27    0.9718985  0.9644451  0.003871334  0.004899456
+##   52    0.9619559  0.9518708  0.004566898  0.005775271
+## 
+## Accuracy was used to select the optimal model using  the largest value.
+## The final value used for the model was mtry = 2.
+</code></pre>
+
+<pre><code class="r">pred1
+</code></pre>
+
+<pre><code>##  [1] B A A A A E D B A A B C B A E E A B B B
+## Levels: A B C D E
 </code></pre>
 
 <p>The tuning parameter in this case is mtry, the number of variables randomly sampled as candidate at each split in trees. From the cv accuracy, surprisingly the optimal mtry is 2, which means our PCs are fairly effective as the top 2 PCs have so much predictive power. The mean CV accuracy and kappa are about 97%. I expect one error during the evaluation of test set (out of 20).</p>
